@@ -1,1 +1,1 @@
-write something in remot master
+text in local
