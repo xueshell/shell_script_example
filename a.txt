@@ -6,4 +6,3 @@ lixin
 new something
 git traing
 lixin
-local 1
