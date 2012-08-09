@@ -1,7 +1,7 @@
-<<<<<<< HEAD
 1
 2
 3
 change
 lixin
 new something
+git traing
