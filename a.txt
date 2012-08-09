@@ -2,9 +2,7 @@
 2
 3
 change
-<<<<<<< HEAD
 lixin
 new something
 git traing
-=======
->>>>>>> parent of 1c15a06...  lixin
+lixin
