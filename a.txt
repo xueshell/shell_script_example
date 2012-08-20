@@ -5,4 +5,3 @@ change
 lixin
 new something
 git traing
-lixin
