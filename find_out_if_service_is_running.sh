@@ -1,4 +1,4 @@
-    #!/bin/bash
+    #!/bin/sh
     # Name : service.chk
     # URL: http://bash.cyberciti.biz/monitoring/simple-process-checker-script/
     # Purpose: A simple process checker. Find out if service is running or not.
