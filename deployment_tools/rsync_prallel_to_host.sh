@@ -8,7 +8,7 @@ RSYNC_MODULE=
 USER=
 PASSWD_FILE=
 
-
+#get varlable
 if [ $# -eq 0 ]
 then
 	echo " argument !"
@@ -16,23 +16,34 @@ then
 fi
 while test $# -gt 0
 do
+	
 	case $1 in
-        -h | -H)
-	 shift
+	-u | -U )
+	shift
+	USER="$1"
+	;;
+
+ 	-p |-P )
+        shift
+        PASSWORD_FILE="$1"
+        ;;
+
+        -h | -H )
+	shift	
 	HOST="$1"
 	;;
 	
-	-m| -M)
+	-m| -M )
 	shift
 	RSYNC_MODULE="$1"
 	;;
 	
-	-p |-M)
+	-t |-T )
 	shift
 	PASSWORD_FILE="$1"
 	;;
 	
-	*)
+	* )
 	echo " error"
 	break
 	;;
@@ -41,3 +52,7 @@ do
 	shift
 done
 echo $HOST $RSYNC_MODULE $USER $PASSWD_FILE
+
+#parse the ip list file
+
+
