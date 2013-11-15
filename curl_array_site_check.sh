@@ -1,9 +1,21 @@
 #! /bin/sh
 
-website[0]='zufang.hfhouse.com/chuzu/'
+QB_PATH="/data0/qb_conf_backup/10.55.37.64/quickbuild_conf/"
+NUM=0
+
+
+website[0]='http://10.55.37.64'
 mobile[0]='15955159890'
-website[1]='oldhouse.hfhouse.com/chushou/'
-mobile[1]='15955159890'
+#website[1]='oldhouse.hfhouse.com/chushou/'
+#mobile[1]='15955159890'
+
+for LINE in $( ls ${QB_PATH} )
+do
+	echo $NUM  $LINE
+	NUM=$((NUM+1));
+done
+
+
 
 length=${#website[@]} 
 for ((i=0; i<$length; i++)) 
