@@ -12,7 +12,7 @@ mobile[0]='15955159890'
 
 for LINE in $( ls ${QB_PATH} )
 do
-	echo $NUM  $LINE ${website[$NUM]}
+#	echo $NUM  $LINE ${website[$NUM]}
 	website["$NUM"]="$QBHOST:$LINE/signin"
 	NUM=$((NUM+1));
 done
