@@ -1,0 +1,8 @@
+#!/bin/bash
+
+URL=$1
+DIR=$2
+shift;shift
+git clone --depth 1 $URL $DIR $@
+cd $(pwd)/$DIR
+rm -rf .git/
