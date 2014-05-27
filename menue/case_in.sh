@@ -1,11 +1,11 @@
 #!/bin/bash
 ###FUCTIONS ####
 function usage {
-echo "usage: dp.sh -p <project-name> -d <commit-sha> [--not-simulate]"
-echo "\t -p, --project \tThe name of the project to deploy (look at the configuration file)"
-echo "\t -d, --deploy \tThe commit you want to deploy"
-echo "\t --not-simulate \tReally deploy, it will not simulate!"
-    echo "\t --no-colors \tDisable colors layout"
+printf "\n usage: dp.sh -p <project-name> -d <commit-sha> [--not-simulate]"
+printf "\n -p, --project \tThe name of the project to deploy (look at the configuration file)"
+printf "\n -d, --deploy \tThe commit you want to deploy"
+printf "\n --not-simulate \tReally deploy, it will not simulate!"
+printf "\n --no-colors    \tDisable colors layout \n"
 }
 
 ######### Start script ########
@@ -24,10 +24,14 @@ while [ "$1" != "" ]; do
        	 -p | --project )
 				shift
 				PROJECT_NAME=$1
+				echo $1
+				echo $*
 				;;
         -d | --deploy )
 				shift
 				DEPLOY_SELECTED=$1
+				echo $1
+				echo $*
 				;;
         --not-simulate )
 				SIMULATION=1
