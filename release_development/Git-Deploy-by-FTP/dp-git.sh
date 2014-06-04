@@ -92,6 +92,14 @@ else
 	fi
 fi
 
+cd $EXPORTED_DIR
+if [ -d $PROJECT_NAME ]
+then
+	rm -fr $PROJECT_NAME
+	git clone $PROJECT_REPO_DIR $PROJECT_NAME
+else
+	git clone $PROJECT_REPO_DIR $PROJECT_NAME
+fi
 ##
 #if [ -d $REPO_CLONED_DIR ]
 #then
@@ -100,12 +108,12 @@ fi
 #fi
 #ls -l  $REPO_CLONE_DIR	
 
-rm -fR $EXPORTED_DIR/source
+#rm -fR $EXPORTED_DIR/source
 rm -fR $EXPORTED_DIR/t
 #git clone $PROJECT_REPO_DIR $REPO_CLONED_DIR
 
 # Check if Deploy commit EXISTS
-cd $PROJECT_REPO_DIR
+cd $EXPORTED_DIR/$PROJECT_NAME
 C_DEPLOY=`git rev-list $DEPLOY_SELECTED | head -n 1`
 echo ==c_deploy==$C_DEPLOY====
 if [[ -z "$C_DEPLOY" ]]
@@ -132,7 +140,7 @@ echo $COLOR_MSG"Clean Exported directory..."$COLOR_RESET
 
 echo $COLOR_MSG"Clone Git Repository..."$COLOR_RESET
 #git clone --recursive file://$PROJECT_REPO_DIR$PROJECT_NAME $REPO_CLONED_DIR
-git clone file://$PROJECT_REPO_DIR $REPO_CLONED_DIR
+#git clone file://$PROJECT_REPO_DIR $REPO_CLONED_DIR
 cd $REPO_CLONED_DIR
 
 echo $COLOR_MSG"Get diff between commits: $C_PRODUCTION - $C_DEPLOY "$COLOR_RESET
@@ -162,7 +170,7 @@ while read row; do
 		         echo --dir---$DIR----
 			 cd $EXPORTED_DIR
 			 mkdir -p t/$DIR	
-			 cp -frap  $EXPORTED_DIR/source/$f_path $EXPORTED_DIR/t/$DIR
+			 cp -frap  $EXPORTED_DIR/$PROJECT_NAME/$f_path $EXPORTED_DIR/t/$DIR
 			if [ "$SIMULATION" == 1 ]
 			then
 				curl -u $FTP_USERNAME:$FTP_PASSWORD --ftp-create-dirs --silent --show-error -T $f_path ftp://$FTP_SERVER$FTP_PATH$f_path
