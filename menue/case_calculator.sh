@@ -1,7 +1,7 @@
 #!/bin/bash  
 # 计算器，用case实现  
 echo " Calculator"  
-echo "1.+"  
+echo "1.+"
 echo "2.-"  
 echo "3.*"  
 echo "4./"  

@@ -11,7 +11,7 @@ PASSWD_FILE=
 #get varlable
 if [ $# -eq 0 ]
 then
-	echo " argument !"
+	echo " USAGE: $0  -u USER -p PASSWD -h HOST -m MODULE -t PASSWD_FILE  "
 	exit 1
 fi
 while test $# -gt 0

@@ -6,7 +6,7 @@ function usage {
 	echo "\t -p, --project  \tThe name of the project to deploy (look at the configuration file)"
 	echo "\t -d, --deploy   \tThe commit you want to deploy"
 	echo "\t --not-simulate \tReally deploy, it will not simulate!"
-    echo "\t --no-colors    \tDisable colors layout"
+   	echo "\t --no-colors    \tDisable colors layout"
 }
 
 ######### Start script ########
