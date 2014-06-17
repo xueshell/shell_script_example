@@ -1,0 +1,24 @@
+# CONFIG FILE for dp.sh
+# Rename it as .dp-config-<project-name>
+# where <project-name> is magic word to have more config files
+
+# DEBUG MODE
+C_DEPLOY="git"
+#C_DEPLOY=""
+# DEBUG MODE
+
+# SETTINGS ------
+EXPORTED_DIR="/data0/build/"
+#PROJECT_REPO_DIR="http://lixin@10.210.132.20:8080/r/~lixin/git-change.git"
+PROJECT_REPO_DIR="/data0/git-change/"
+FTP_SERVER="my.ftp.server"
+FTP_PATH="/public_html/"
+FTP_USERNAME="ftp-username"
+FTP_PASSWORD="ftp-password"
+# SETTINGS ------
+
+# SET some other useful directories
+REPO_CLONED_DIR=$EXPORTED_DIR/"source"
+FILENAME_DIFF="deploy-"$C_DEPLOY".diff"
+PRODUCTION_TAG_NAME="production"
+
