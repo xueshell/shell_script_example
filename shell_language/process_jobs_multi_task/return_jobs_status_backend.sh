@@ -14,13 +14,14 @@ function sub_shell()
 
 
  
- i=0  
- var=10  
-   for i in `seq 10`; do  
-      sub_shell $i &  
-   done  
+i=0  
+var=10  
+
+for i in `seq 10`; do  
+   sub_shell $i &  
+done  
  
- for pid in $(jobs -p); do  
+for pid in $(jobs -p); do  
     wait $pid  
     echo "return var = $?"  
  done  
