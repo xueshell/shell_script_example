@@ -4,3 +4,6 @@
 [submodule "release_development/GitPushy"]
 	path = release_development/GitPushy
 	url = https://github.com/frinknet/GitPushy
+[submodule "release_development/deploy_git_rsync"]
+	path = release_development/deploy_git_rsync
+	url = https://github.com/eigan/deploy
