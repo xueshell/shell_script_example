@@ -1,0 +1,6 @@
+[submodule "release_development/git-ftp"]
+	path = release_development/git-ftp
+	url = https://github.com/git-ftp/git-ftp
+[submodule "release_development/GitPushy"]
+	path = release_development/GitPushy
+	url = https://github.com/frinknet/GitPushy
