@@ -3,8 +3,8 @@
 #######################################
 #!/bin/bash
 # max.sh: 两个整数中的最大者.
-E_PARAM_ERR=-198 # 如果传给函数的参数少于2 个时的返回值.
-EQUAL=-199 # 如果两个整数值相等的返回值.
+E_PARAM_ERR=8 # 如果传给函数的参数少于2 个时的返回值.
+EQUAL=9 # 如果两个整数值相等的返回值.
 # 任一个传给函数的参数值溢出
 #
 max2 () # 返回两个整数的较大值.
@@ -30,6 +30,7 @@ max2 () # 返回两个整数的较大值.
 max2 $1 $2 
 return_val=$?
 
+echo $return_val
 if [ "$return_val" -eq $E_PARAM_ERR ]
 then
 	 echo "Need to pass two parameters to the function."
