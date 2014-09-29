@@ -1,7 +1,4 @@
 M       quickbuild_conf/8837/Mon.zip
-A       quickbuild_conf/8837/Tue.zip
-M       quickbuild_conf/8819/Wed.zip
-A       quickbuild_conf/8819/Thu.zip
 M       quickbuild_conf/8819/Sun.zip
 M       quickbuild_conf/8819/Sat.zip
 M       quickbuild_conf/8819/Mon.zip
