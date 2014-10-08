@@ -1,3 +1,8 @@
+#after release ,check file is rsynced yes or no 
+#lixin@staff.sina.com.cn
+#check example:
+#curl "http://dpadmin.grid.sina.com.cn/api/validist.php?clustername=blog&checklist=dpooltools/md5sum_v2.php:45ee210dee818f959623b980e23963c1,dist_test:d41d8cd98f00b204e9800998ecf8427e&uuid=1411474160.170537339&mod=int_dpool_sina_com_cn&igtime=60"
+
 #!/bin/bash
 WOrkpath="$1"
 declare -a NAME 
@@ -36,7 +41,7 @@ file_md5_str(){
 	
 	local m=0
 
-	while [[ $m -le ${#NAME[@]} ]] 
+	while [ $m -le ${#NAME[@]} ]
 	do
 	#	echo ${NAME[m]}
 		if [[ $m -eq 0 ]]
@@ -46,9 +51,18 @@ file_md5_str(){
 			m=$(($m+1))
 			continue
 		fi
-       		CHeckFlist="$CHeckFlist,${NAME[m]}"
+	##	
+ 		if [  ! -z "${NAME[$m]}" ]
+		then
+		
+       			CHeckFlist="$CHeckFlist,${NAME[m]}"
+			m=$(($m+1))
+		fi
+        ##
+		
 		m=$(($m+1))
-	
+		continue	
+
 	done
 	echo $CHeckFlist
 }
