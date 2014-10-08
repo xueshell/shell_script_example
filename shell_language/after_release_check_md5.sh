@@ -1,12 +1,10 @@
 #!/bin/bash
-Workpath="$1"
+WOrkpath="$1"
 declare -a NAME 
 FName=""
 FPath=""
 MD5value=""
 FList=$(find . -type f )
-n=0
-m=0
 
 
 create_md5() {
@@ -21,13 +19,15 @@ create_md5() {
 
 
 file_md5_array(){
+	
+	local n=0
 
-while read file
-do
+	while read file
+	do
       		NAME[$n]=$(create_md5 $file)
 		n=$(($n+1))	
-done<<EOF
-$FList
+	done<<EOF
+	$FList
 EOF
 
 }
@@ -39,6 +39,13 @@ file_md5_str(){
 	while [[ $m -le ${#NAME[@]} ]] 
 	do
 	#	echo ${NAME[m]}
+		if [[ $m -eq 0 ]]
+		then
+			
+       			CHeckFlist="${NAME[m]}"
+			m=$(($m+1))
+			continue
+		fi
        		CHeckFlist="$CHeckFlist,${NAME[m]}"
 		m=$(($m+1))
 	
@@ -46,12 +53,11 @@ file_md5_str(){
 	echo $CHeckFlist
 }
 
-
+#cd $WOrkpath 
 
 file_md5_array
 	
 file_md5_str
-
 
 
 
