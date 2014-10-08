@@ -4,4 +4,5 @@ do
         name[$i]=$i;
 done
 
-echo ${name[@]}
+echo ${#name[@]}
+echo ${name[99]}
