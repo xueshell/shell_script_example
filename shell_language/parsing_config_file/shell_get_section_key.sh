@@ -6,7 +6,8 @@ while IFS='= ' read var val
 do
     if [[ $var == \[*] ]]
     then
-        section=$(echo $var | sed 's/^\[\(.*\)\]$/\1/')
+       echo section=$(echo $var | sed 's/^\[\(.*\)\]$/\1/')
+    #   section=$(echo $var | sed 's/^\[\(.*\)\]$/\1/p')
     elif [[ $val ]]
     then
         if [ -z $section ];then
@@ -16,6 +17,8 @@ do
         fi  
     fi  
 done < config.ini
+
+
 
 
 #使用的时候：
