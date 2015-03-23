@@ -18,7 +18,7 @@ do
     fi  
 done < config.ini
 
-
+#echo "Serial Number...............123456789" |sed 's/Serial Number.*\([0-9]\{9\}\)/\1/'
 
 
 #使用的时候：
