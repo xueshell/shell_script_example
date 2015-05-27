@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+CONFIG=ryogoku.conf
+ENV=$1
+
+
+#
+# Check if config <section> exists.
+#
+config_section() {
+  grep "^\[$1\]" $CONFIG &> /dev/null
+}
+
+#
+# Get config value by <key>.
+#
+config_get() {
+  local nr_env=$(nl -b a $CONFIG | grep -m 1 "\[$ENV\]" | cut -f 1 | sed 's/ *//g')
+  local nr_next_env=$(awk -v nr_env=$nr_env 'NR > nr_env && /^\[/ { print NR; exit }' $CONFIG)
+  test -z "$nr_next_env" && nr_next_env='$'
+
+  local key=$1
+  test -n "$key" \
+    && sed -n "${nr_env}, ${nr_next_env}p" $CONFIG \
+    | grep "^$key" \
+    | head -n 1 \
+    | cut -s -d ' ' -f 2-
+}
+
+
+#
+# Get ssh host list.
+#
+get_ssh_list() {
+  echo $(config_get host) | awk -v user="$(config_get user)" '{
+    for(i=1; i<=NF; i++) {
+      if($i ~ /^[^@]+@[^@]+$/) {
+        print $i
+      } else {
+        host = (user ~ /^$/)? $i : user"@"$i;
+        print host
+      }
+    }
+  }'
+}
+
+#
+# Execute command via ssh to all the hosts.
+#
+ssh_command() {
+  get_ssh_list | xargs -t -n $PARALLEL -P $PARALLEL -I % ssh $(get_ssh_options) % "$@"
+}
+
+get_ssh_list
