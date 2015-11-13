@@ -32,7 +32,8 @@ typeset -i MB_SIZE=$1
 typeset -i RN
 typeset -i i=1
 typeset -i X=0
-WORKDIR=/scripts
+#WORKDIR=/scripts
+WORKDIR=/data0
 OUTFILE=${WORKDIR}/largefile.random.txt
 >$OUTFILE
 THIS_SCRIPT=$(basename $0)
