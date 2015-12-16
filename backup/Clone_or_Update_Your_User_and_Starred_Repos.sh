@@ -1,11 +1,17 @@
 #!/bin/bash
 export SHELL=$(type -P bash)
 
+<<<<<<< HEAD
 targetdir="/data0/github"
 #user=GITHUBUSER
 #token=ACCESSTOKEN
 user=gitsvn
 token=42b2533c198a8f82300990597ddc9e221ab47a27
+=======
+targetdir="/var/github"
+user=gitsvn
+token=92a564894d9cd92133e5b5c25188f534433e60e6
+>>>>>>> 6ca6492825d9928ea4fca35e185ffc179ff92ac9
 urls="/users/$user/repos /users/$user/starred"
 
 # actions
