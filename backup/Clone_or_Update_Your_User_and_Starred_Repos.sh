@@ -1,9 +1,11 @@
 #!/bin/bash
 export SHELL=$(type -P bash)
 
-targetdir="/var/github"
-user=GITHUBUSER
-token=ACCESSTOKEN
+targetdir="/data0/github"
+#user=GITHUBUSER
+#token=ACCESSTOKEN
+user=gitsvn
+token=42b2533c198a8f82300990597ddc9e221ab47a27
 urls="/users/$user/repos /users/$user/starred"
 
 # actions
@@ -108,6 +110,7 @@ do
 			for repo in $repos
 			do
 				cloneorupdate $repo
+			
 			done
 		fi
 		link=`cat $headerfile | grep -o -e '<[^>]*>; rel="next"' | sed -e 's/<\([^>]*\)>.*/\1/'`
