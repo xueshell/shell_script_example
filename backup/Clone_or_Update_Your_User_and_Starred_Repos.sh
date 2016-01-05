@@ -4,7 +4,7 @@ export SHELL=$(type -P bash)
 targetdir="/data0/github"
 #user=GITHUBUSER
 #token=ACCESSTOKEN
-user=gitsvn
+user=svngit
 token=92a564894d9cd92133e5b5c25188f534433e60e6
 urls="/users/$user/repos /users/$user/starred"
 
