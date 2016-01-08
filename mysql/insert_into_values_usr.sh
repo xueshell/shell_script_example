@@ -29,17 +29,18 @@ done<$CON
 mv $CON_T $CON
 }
 
+
+
 insert_value(){
 id=$1
 name=$2
 address=$3
 phone=$4
 birthday=$5
-mysql -uroot  -p"021120" <<EOF
-   use test;
-   insert into user(user_id,user_name,address,phone,birthday)values('$id','$name','$address','$phone','$birthday');
-EOF
+mysql -uroot  -p021120 -e "use test; insert into user(user_id,user_name,address,phone,birthday)values('$id','$name','$address','$phone','$birthday');"
 }
+
+
 for M in {a..z}
 do
 	for N in {A..Z}
@@ -51,7 +52,7 @@ do
 			echo -n " $M$N$X$Z  "
 			echo  " "
 		#	mkdir $M$N$X$Z
-			insert_value $M $N $X $Z 19900101 
+			insert_value $(cat $CON)  $M$N $X $Z 19900101 
 			counter
 			done
 		done
