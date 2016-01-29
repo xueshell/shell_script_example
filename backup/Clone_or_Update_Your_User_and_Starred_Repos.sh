@@ -5,11 +5,7 @@ targetdir="/data0/github"
 #user=GITHUBUSER
 #token=ACCESSTOKEN
 user=svngit
-<<<<<<< HEAD
 token=4ee6592501ecc58b27cf581ed371126f6a89bae6
-=======
-token=92a564894d9cd92133e5b5c25188f534433e60e6
->>>>>>> FETCH_HEAD
 urls="/users/$user/repos /users/$user/starred"
 
 # actions
