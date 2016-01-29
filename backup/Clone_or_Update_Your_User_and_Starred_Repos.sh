@@ -4,8 +4,8 @@ export SHELL=$(type -P bash)
 targetdir="/data0/github"
 #user=GITHUBUSER
 #token=ACCESSTOKEN
-user=gitsvn
-token=92a564894d9cd92133e5b5c25188f534433e60e6
+user=svngit
+token=4ee6592501ecc58b27cf581ed371126f6a89bae6
 urls="/users/$user/repos /users/$user/starred"
 
 # actions
@@ -106,15 +106,19 @@ do
 		# get the repos, use parallel if available
 		if $(hash parallel 2>/dev/null); then
 			SHELL=$(type -P bash) parallel --gnu -j 20 cloneorupdate ::: $repos
+	#		:
 		else
 			for repo in $repos
 			do
 				cloneorupdate $repo
+		#		:
 			
 			done
 		fi
 		link=`cat $headerfile | grep -o -e '<[^>]*>; rel="next"' | sed -e 's/<\([^>]*\)>.*/\1/'`
-		rm $headerfile
+		echo "############$link##########"
+#		echo rm $headerfile
+#		rm $headerfile
 	done
 done
 

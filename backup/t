@@ -1,0 +1,16 @@
+Fetching repositories, https://api.github.com/users/svngit/repos?page=1&per_page=100
+######################
+rm /tmp/curlheaders.28083.6868.25450.11348
+Fetching repositories, https://api.github.com/users/svngit/starred?page=1&per_page=100
+############https://api.github.com/user/1921443/starred?page=2&per_page=100##########
+rm /tmp/curlheaders.25254.3635.23655.11348
+Fetching repositories, https://api.github.com/user/1921443/starred?page=2&per_page=100
+############https://api.github.com/user/1921443/starred?page=3&per_page=100##########
+rm /tmp/curlheaders.25254.3635.23655.11348
+Fetching repositories, https://api.github.com/user/1921443/starred?page=3&per_page=100
+############https://api.github.com/user/1921443/starred?page=4&per_page=100##########
+rm /tmp/curlheaders.25254.3635.23655.11348
+Fetching repositories, https://api.github.com/user/1921443/starred?page=4&per_page=100
+######################
+rm /tmp/curlheaders.25254.3635.23655.11348
+checked 340 repositories
