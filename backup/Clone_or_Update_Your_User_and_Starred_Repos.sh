@@ -1,7 +1,7 @@
 #!/bin/bash
 export SHELL=$(type -P bash)
 
-targetdir="/data0/github"
+targetdir="/data4/github"
 #user=GITHUBUSER
 #token=ACCESSTOKEN
 user=svngit
