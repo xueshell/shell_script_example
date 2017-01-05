@@ -1,15 +1,17 @@
 #!/bin/bash  
 #shell计算代码运行时间   
 
-function  handle() {  
-        start=$(date +%s%N)  
-     start_ms=${start:0:16}  
-     awk '{a[$1]++} END{print length(a)}' breakfast_all receptions_all cheap_all  
-      end=$(date +%s%N)  
-        end_ms=${end:0:16}  
-      echo "cost time is:"  
-      echo "scale=6;($end_ms - $start_ms)/1000000" | bc
-} 
+function  handle() {
+start=$(date +%s%N)
+start_ms=${start:0:16}
+#awk '{a[$1]++} END{print length(a)}' ../*
+ping -c 10 www.sina.com.cn
+                                           
+end=$(date +%s%N)
+end_ms=${end:0:16}
+echo "cost time is:"
+echo "scale=6;($end_ms - $start_ms)/1000000" | bc
+}
 handle
 
 #代码思路比较清晰 %s是精确到秒，%N是纳秒，取字符串前16位，得到的是秒后小数点六位。
