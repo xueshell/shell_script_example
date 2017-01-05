@@ -318,11 +318,15 @@ dynamicjson(){
 }
 
 staticjson=$(staticjson)
-curl  -X POST -H 'Content-Type:application/json' -d "${staticjson}" http://${serverip}:8080/nms/poststatics
+#curl  -X POST -H 'Content-Type:application/json' -d "${staticjson}" http://${serverip}:8080/nms/poststatics
+curl  -X POST -H 'Content-Type:application/json' -d "${staticjson}" http://${serverip}:80/t.php
 
 while true
 do
 dyjson=$(dynamicjson)
-curl  -X POST -H 'Content-Type:application/json'  -d "${dyjson}"  http://${serverip}:8080/nms/postdrynamic
-sleep 60
+#curl  -X POST -H 'Content-Type:application/json'  -d "${dyjson}"  http://${serverip}:8080/nms/postdrynamic
+echo "curl  -X POST -H 'Content-Type:application/json'  -d "${dyjson}"  http://${serverip}:80/t.php"
+curl  -X POST -H 'Content-Type:application/json'  -d "${dyjson}"  http://${serverip}:80/t.php
+sleep 30 
+echo " $date"
 done
