@@ -11,18 +11,22 @@ ficheros_modificados=0
 #				$2 Destine directory.
 recurse() {
 	# Iterate over all directories.
-	for i in "$1"/*;do
+	for i in "$(ls -a $1)"/*;do
 		DIR=`dirname "$i"` # get path
+            echo $DIR
 		NAME=`basename "$i"` # get name
+        echo $NAME
 		FILE="$DIR/$NAME" # complete path
+        echo $FILE
 		if [ -d "$i" ];then # if we iterate over directory...
 			if [ ! -d $2/$NAME ];then # if it doesn't exist we create it
-				echo "Directorio no existe $2/$NAME"
+				echo "Directory  no exist $2/$NAME"
 				mkdir "$2/$NAME"
 				directorios_creados=$((directorios_creados+1))
 			fi
 			# As it is a directory we must enter it in order to iterate over its children directories.
 			recurse "$i" "$2/$NAME"
+			echo recurse "$i" "$2/$NAME"
 		elif [ -f "$i" ]; then # if we iterate over file...
 			if [ ! -f "$2/$NAME" ];then # if it doesn't exist we copy it
 				echo "Fichero no existe $2/$NAME"

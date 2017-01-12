@@ -1,0 +1,7 @@
+[sinawatch-agent]
+name=sinawatch-agent
+baseurl=http://iyum.monitor.sina.com.cn/sinawatch/sinawatch_agent/centos/$releasever/$basearch/
+#for waiwang
+#baseurl=http://yum.monitor.sina.com.cn/sinawatch/sinawatch_agent/centos/$releasever/$basearch/
+enabled=1
+gpgcheck=0
