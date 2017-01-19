@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ ! -n "$1" ]; then
+    echo "Pass the multi command."
+    exit 1
+fi
+
+command=$1
+shift
+
+case "$command" in
+    add*)
+        git-multi-add "$@"
+    ;;
+    work*)
+        git-multi-work "$@"
+    ;;
+    run*)
+        git-multi-run "$@"
+    ;;
+    *)
+        echo "Pass the multi command."
+        exit 1
+    ;;
+esac

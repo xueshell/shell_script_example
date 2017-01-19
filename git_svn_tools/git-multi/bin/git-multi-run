@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ ! -n "$1" ]; then
+    echo "Must pass the name to 'git multi run'";
+    exit 1;
+fi
+
+name=$1
+shift
+
+MPWD=`pwd`;
+echo ".git-multi" > "${MPWD}/.git-multi/${name}/info/exclude";
+for i in `ls .git-multi/ | grep -v "${name}"`;
+do
+    GIT_WORK_TREE="$MPWD" GIT_DIR="${MPWD}/.git-multi/${i}" git ls-files >> "${MPWD}/.git-multi/${name}/info/exclude";
+done
+
+GIT_WORK_TREE="$MPWD" GIT_DIR="${MPWD}/.git-multi/${name}" "$@";
