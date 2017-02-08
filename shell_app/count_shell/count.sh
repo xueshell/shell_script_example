@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 START_TIME=`date +%s`
 now_time=$START_TIME
@@ -67,7 +67,7 @@ function makeSpace(){
 
 function cursorUp(){
   for i in `seq 1 1 $1` ; do
-    echo "$(tput cuu1)\c"
+    echo -e "$(tput cuu1)\c"
   done
 }
 
@@ -120,7 +120,7 @@ if [ $seconds -ne 0 ] ; then
   echo "$space 88       8888   88  88   8888   888888   88  88    88"
   echo $alert
 else
-  echo "\n\n\n\n\n\n"
+  echo -e "\n\n\n\n\n\n"
   while true ; do
     cursorUp 7
     echoTime $(( now_time - START_TIME ))
