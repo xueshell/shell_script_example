@@ -1,0 +1,153 @@
+#!/bin/bash
+# File    :  Email    
+# Descr.  :  Component of Address Book app.
+#            Lets user email customers in the Address Book file CustomerDetails.
+#            User allowed email all customers, or one specifically.
+#            Main script makes use of specific scripts for emailing all customers 
+#            (emailAllCustomers, lines 11- 18), and emailing one customer 
+#            (emailCustomer, lines 21- 75).
+#            To email a single customer, the user will be asked to search for a 
+#            customer until just one is found.
+#            Whether emailing one customer or all customers, the user will be asked
+#            for confirmation before email is sent. 
+#            After email is sent, user will be given option to send more email,
+#            otherwise the script will exit.
+# Author  :  Damien Murphy (96406801)
+# Version :  Version 1.0, April 18th 2016
+
+#mass email function to be called below
+function emailAllCustomers {
+  
+  stillSpamming=""
+
+  # loop until finished emailing everyone
+  until [ "$stillSpamming" == "n" ]; do
+
+    # pull all email addresses, and get subject and message details
+    grep -E -o "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b" CustomerDetails > emailList
+    read -e -p "Stopping here..." stop
+    printf "\n"
+    read -e -p "      Subject : " subject
+    read -e -p "      Message : " messageText
+
+    # check whether to send and send if confirmed
+    spamConfirmation=""
+    until [ "$spamConfirmation" == "y" ] || [ "$spamConfirmation" == "n" ]; do
+      printf "\n"
+      read -e -p "   Do you wish to send this email to everyone? (y/n) " spamConfirmation
+      if [ "$spamConfirmation" == "y" ]; then
+        echo "$messageText" | mailx -s "$subject" $(<emailList)
+      fi
+    done
+
+    # check whether to send any more group emails
+    stillSpamming=""
+    until [ "$stillSpamming" == "y" ] || [ "$stillSpamming" == "n" ]; do
+      printf "\n"
+      read -e -p "   Do you wish to send any more group emails? (y/n) " stillSpamming
+    done
+
+    rm emailList
+
+  done
+}
+
+#individual email function to be called below
+function emailCustomer {
+
+  foundCustomer=""  
+  customerEmail=""  
+  correctCustomer=""
+  
+  # loop until correct customer is found
+  until [ "$correctCustomer" == "y" ]; do
+
+    numberCustomers=""
+    
+    # loop until only one customer return to email
+    until [ "$numberCustomers" == "1" ]; do
+      printf "\n"
+      read -e -p "   Search for the customer(s) you wish to email: " custSearch
+      numberCustomers=$(grep -i -c $custSearch CustomerDetails)
+      
+      # check number of customers found and make appropriate print to screen
+      case $numberCustomers in
+        0)
+          printf "\n     No customers found that match your search!\n"
+          ;;
+        1)
+          foundCustomer=`grep -i $custSearch CustomerDetails | awk '{print "\n     " $3 ": " $2, $1, "\n    ", $4 " | " $5, "\n    ", substr($0, index($0,$6)) "\n"}'`
+          customerEmail=`grep -i $custSearch CustomerDetails | awk '{print $4}'`
+          ;;
+        *)
+          grep -i $custSearch CustomerDetails | awk '{print "\n     " $3 ": " $2, $1, "\n    ", $4 " | " $5, "\n    ", substr($0, index($0,$6))}'
+          printf "\n     More than one customer found that matches your search!\n"
+          ;;
+      esac
+
+    done
+
+    correctCustomer=""
+    
+    # loop until valid confirmation received    
+    until [ "$correctCustomer" == "y" ] || [ "$correctCustomer" == "n" ]; do
+      printf "   $foundCustomer\n\n"
+      #grep -i $custSearch CustomerDetails | awk '{print "\n     " $3 ": " $2, $1, "\n    ", $4 " | " $5, "\n    ", substr($0, index($0,$6))}'
+      read -e -p "   Is this the customer you wish to email? (y/n) " correctCustomer
+    done
+
+  done
+
+  #email if confirmed
+  if [ "$correctCustomer" == "y" ]; then
+    printf "\n"
+    read -e -p "   Subject : " subject
+    printf "\n"
+    read -e -p "   Message : " message
+    echo "$message" | mail -s "$subject" "$customerEmail"
+  fi
+} # end of emailCustomer function
+
+
+# Main Email script functionality:
+
+emailing="y"
+
+# loop until user finished emailing
+until [ "$emailing" == "n" ]; do
+
+  clear
+
+  option=""
+  until [[ "$option" == "1" ]] || [[ "$option" == "2" ]]; do
+    printf "\n   Email options :\n\n"
+    printf "      1. Email an individual customer\n"
+    printf "      2. Email all customers\n\n"
+    read -e -p "   Please enter an option : " option
+  done
+
+  case $option in
+    1) 
+      #call individual email option
+      emailCustomer
+      ;;
+    2)
+      #call mass email option
+      emailAllCustomers
+      ;;
+    *)
+      #default action
+      echo invalid option
+  esac
+
+  # check if done emailing
+  emailing=""
+  until [ "$emailing" == "y" ] || [ "$emailing" == "n" ]; do 
+    printf "\n"
+    read -e -p "   Do you wish to email anyone else? (y/n) " emailing
+  done
+done
+
+sleep .2
+
+exit 0

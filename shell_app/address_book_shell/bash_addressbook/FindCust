@@ -1,0 +1,34 @@
+#!/bin/bash
+# File 	  :  FindCust 		
+# Descr.  :  Component of Address Book app.
+# 					 Lets user find customers in the Address Book file CustomerDetails.
+#						 User is prompted for search criteria, and any matching customers 
+#						 returned. 
+#						 User is asked if they wish to search again. If so the loop repeats, 
+#						 otherwise the script exits.
+# Author  :  Damien Murphy (96406801)
+# Version :  Version 1.0, April 18th 2016
+
+# loop until user finished searching 
+searchAgain=""
+until [ "$searchAgain" = "n" ]; do
+
+	# solicit search criteria and print matching customers
+	printf "\n"
+	read -e -p "   Enter the customers details : " name
+	#printf "\n   Customers found:\n\n"
+	grep -i -c $name CustomerDetails | awk '{print "\n   " $1 " customer(s) matched your search:"}'
+	grep -i $name CustomerDetails | awk '{print "\n     " $3 ": " $2, $1, "\n    ", $4 " | " $5, "\n    ", substr($0, index($0,$6))}'
+	printf "\n"
+
+	# check if finished
+	searchAgain=""
+	until [ "$searchAgain" = "y" ] || [ "$searchAgain" = "n" ]; do
+		read -e -p "   Search for another customer? (y/n) " searchAgain
+	done
+	printf "\n"
+done
+
+sleep .2
+
+exit 0

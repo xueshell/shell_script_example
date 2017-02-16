@@ -1,0 +1,7 @@
+# Ignore all dotfiles...
+.*
+# except for .gitignore
+!.gitignore
+
+# Ignore zip of all scripts
+CompSystems_ICT_DMurphy_96406801.zip

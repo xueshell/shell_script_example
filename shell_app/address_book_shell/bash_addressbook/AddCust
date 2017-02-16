@@ -1,0 +1,102 @@
+#!/bin/bash
+# File 	  :  AddCust 		
+# Descr.  :  Component of Address Book app.
+# 					 Lets user add customers to the Address Book, with all customers
+#						 stored in the app file CustomerDetails.
+#						 Customer detail fields are validated appropriately, and the user 
+# 					 will continue to be prompted to enter data in the field until 
+#						 appropriate data is entered. 
+#						 Once all customer details are entered, the user will be prompted 
+#						 for verification they are correct, 
+#						 User will be allowed to add as many customers as they wish, via 
+#						 the above process, and the script will then exit when they are 
+#						 finished
+# Author  :  Damien Murphy (96406801)
+# Version :  Version 1.0, April 18th 2016 
+
+
+# loop until user finished adding customers
+adding=""
+until [ "$adding" == "n" ]; do
+
+	# solicit and confirm details of new customer from user
+	clear
+	printf "\n   Enter the details of the customer you wish to add:\n\n"
+	
+	# check email is in correct format and is unique
+	email=""
+	until [[ "$email" == ?*@?*.?* ]] && [ $numberEntries -le 0 ]; do
+		read -e -p "      Email   :  " email
+		email=${email// /}
+		numberEntries=$(grep -c -i $email ./CustomerDetails)
+	done
+
+	# check name for invalid characters and replace spaces with hyphens
+	name=""
+	until [[ "$name" =~ ^[A-Za-z]+$ ]]; do
+		read -e -p "      Name    :  " name
+		name=${name// /-}
+	done
+
+	# check surname for invalid characters and replace spaces with hyphens
+	surname=""
+	until [[ "$surname" =~ ^[A-Za-z]+$ ]]; do
+		read -e -p "      Surname :  " surname
+		surname=${surname// /-}
+	done
+
+	# check alias for invalid characters and replace spaces with hyphens	
+	alias=""
+	until [[ "$alias" =~ ^[A-Za-z]+$ ]]; do
+		read -e -p "      Alias   :  " alias
+		alias=${alias// /-}
+	done
+
+	# check address for invalid characters
+	address=""
+	until [[ "$address" =~ [0-9A-Za-z,]+$ ]]; do
+		read -e -p "      Address :  " address
+	done
+
+	# check phone for invalid characters and replace spaces with hyphens
+	phone=""
+	until [[ "$phone" =~ ^[0-9]+$ ]]; do
+		read -e -p "      Phone   :  " phone
+		phone=${phone// /-}
+	done
+	printf "\n"
+
+	# confirm and save details
+	confirmation=""
+	until [ "$confirmation" == "y" ] || [ "$confirmation" == "n" ]; do
+		read -e -p "   Are the above details correct? (y/n) " confirmation
+	done
+
+	# place customer into file, creating CustomerDetails file if necessary
+	if [ "$confirmation" = "y" ] || [ "$confirmation" = "Y" ]; then
+		if [ -f ./CustomerDetails ]; then
+			echo $surname $name $alias $email $phone $address >> CustomerDetails
+			sort CustomerDetails > TmpCustomerDetails
+	  	mv TmpCustomerDetails CustomerDetails
+			printf "\n   Entry added successfully.\n\n"
+		else
+			echo $surname $name $alias $email $phone $address > CustomerDetails
+			sort CustomerDetails > TmpCustomerDetails
+			mv TmpCustomerDetails CustomerDetails
+			printf "\n   Entry added successfully.\n\n"
+		fi
+	else
+		printf "\n   Entry not added!\n\n"
+	fi
+
+	# check if additional entries need to be added
+	adding=""
+	until [ "$adding" == "y" ] || [ "$adding" == "n" ]; do
+		read -e -p "   Do you wish to add another customer? (y/n) : " adding
+	done
+
+done
+
+sleep .2
+
+exit 0

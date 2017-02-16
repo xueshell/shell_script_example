@@ -1,0 +1,66 @@
+#!/bin/bash
+# File    :  RemCust    
+# Descr.  :  Component of Address Book app.
+#            Lets user remove customers from the Address Book file (CustomerDetails).
+#            Asks the user who they want to search for, prints the customers found. 
+#            User is asked for a valid response to verify deletion, the deletion 
+#            performed (or not), and the user asked if they wish to perform any further
+#            deletions.
+#            If further deletions chosen, the script loop will continue and the above
+#            steps repeat. If not, the loop ends gracefully and the script exits. 
+# Author  :  Damien Murphy (96406801)
+# Version :  Version 1.0, April 18th 2016
+
+# let RemCust loop until user finished deleting
+deleting=""
+until [ "$deleting" == "n" ]; do
+
+  custDelSearch=""
+  noCustFound=0
+
+  # loop until 1 or more customers found
+  while [ $noCustFound -eq 0 ]; do
+    # prompt for search criteria
+    printf "\n"
+    read -e -p "   Search for customer(s) to remove : " custDelSearch
+
+    noCustFound=`grep -i -c $custDelSearch CustomerDetails`
+
+    if [ $noCustFound -eq 0 ]; then
+      printf "\n   No customers found!\n"
+    else
+      # print customers
+      grep -i -c $custDelSearch CustomerDetails | awk '{print "\n   " $1 " customer(s) matched your search:"}'
+      grep -i $custDelSearch CustomerDetails | awk '{print "\n     " $3 ": " $2, $1, "\n    ", $4 " | " $5, "\n    ", substr($0, index($0,$6))}'
+      printf "\n"
+    fi
+
+  done
+
+  # verify deletion
+  deleteResponse=""
+  until [ "$deleteResponse" == "y" ] || [ "$deleteResponse" == "n" ]; do
+    read -e -p "   Are you sure you wish to remove the customer(s) found? (y/n) " deleteResponse
+  done
+
+  # perform deletion or not
+  if [ "$deleteResponse" == "y" ]
+    then
+    grep -i -v $custDelSearch CustomerDetails > tmpCustomerDetails
+    mv tmpCustomerDetails CustomerDetails
+  else 
+    printf "\n   Don't worry, no one has been deleted!\n"
+  fi
+
+  # check if further deletions required
+  deleting=""
+  until [ "$deleting" == "y" ] || [ "$deleting" == "n" ]; do
+    printf "\n"
+    read -e -p "   Do you wish to delete any other customers? (y/n) " deleting
+  done
+
+done
+
+sleep .2
+
+exit 0 

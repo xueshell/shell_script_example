@@ -1,0 +1,66 @@
+#!/bin/bash
+# File 	  :  Menu 		
+# Descr.  :  Menu component of Address Book app. 
+# 					 Lets user add, remove, find, or email a customer, by 
+#						 presenting the menu options, allowing a user to choose 
+#						 a relevant option, and calling the corresponding script.
+#						 User will continue to be prompted to enter an option 
+#						 until a valid option is entered.
+# Author  :  Damien Murphy (96406801)
+# Version :  Version 1.0, April 18th 2016 
+
+# let menu loop until user finished using app
+exitMenu=false
+until [ $exitMenu == true ]; do
+
+	#clear screen & draw menu
+	clear
+	printf "\n   ---------------------------------------\n"
+	printf "   Welcome to the Address Book application\n"
+	printf "   ---------------------------------------\n"
+	printf "\n   Please choose one of the following:\n\n"
+	printf "      1. Add a new Customer\n"
+	printf "      2. Remove a Customer\n"
+	printf "      3. Find a Customer\n"
+	printf "      4. Email a Customer\n"
+	printf "      5. Exit\n\n"	
+	
+	#prompt user for an input until a valid option is received
+	menuchoice=0
+	until [ $menuchoice -ge 1 ] && [ $menuchoice -le 6 ]; do
+	  read -e -p "   Enter a Number : " menuchoice
+	done
+
+	#check menuchoice and execute appropriate option
+	case $menuchoice in
+		1)
+			#tidy screen and call script to add new customer
+			clear
+			./AddCust
+			;;
+		2)
+			#tidy screen and call script to remove customer
+			clear
+			./RemCust
+			;;
+		3)
+			#tidy screen and call script to search Address Book
+			clear
+			./FindCust
+			;;
+		4)
+			#tidy screen and call script to email customer(s)
+			clear
+			./Email
+			;;
+		5)
+			#tidy screen and allow app exit
+			clear
+			exitMenu=true
+			;;
+		*)
+			#default action
+			echo invalid option
+	esac
+
+done
