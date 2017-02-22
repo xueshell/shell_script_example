@@ -1,0 +1,76 @@
+#!/bin/sh
+# coding: utf-8
+
+### SET SHELL COLORS {
+##DEPENDS: util-linux (main/required).
+BOLD=$(setterm -bold on)
+RESET=$(setterm -default)
+
+if [ -x /usr/bin/tput ] && tput setaf 1 >/dev/null 2>&1;
+then
+    RED=${BOLD}$(tput setaf 1)
+    GREEN=${BOLD}$(tput setaf 2)
+    YELLOW=${BOLD}$(tput setaf 3)
+else
+    RED=${BOLD}
+    GREEN=${BOLD}
+    YELLOW=${BOLD}
+fi
+### END SET SHELL COLORS }
+
+output()
+{
+    printf "$1${RESET}"
+}
+
+warn()
+{
+    output "${YELLOW}${1}"
+}
+
+# exit this script with a message
+bail()
+{
+    output "${RED}${1}${RESET}\nAborted.\n"
+    exit 1
+}
+
+REPOSITORY=$(pwd)
+
+if [ ! -d "${REPOSITORY}/.svn" ]; then
+  bail "fatal: could not determine the subversion root directory"
+  exit 1
+fi
+
+case $1 in
+  '-h')
+    output "Usage: svn-export REV [PATH]\n"
+    output "Exports a clean directory tree from the repository at revision REV,\n"
+    output "into PATH. If PATH is omitted, ${YELLOW}export/REV/${RESET} is used for the\n"
+    output "local directory name.\n"
+
+    exit 0
+    ;;
+
+  ''|*[!0-9]*)
+    bail "fatal: The REV argument must be an integer"
+    ;;
+esac
+
+REV="$1"
+
+[ "" != "$2" ] && DEST=$2 || DEST="${PWD}/export/${REV}"
+
+LIST=$(svn log -v -r ${REV} ${REPOSITORY} | grep trunk | grep -v docs | awk '{print $2}' | sed  "s/\/trunk\///g")
+
+output "${BOLD}exporting to:${RESET} ${GREEN}${DEST}${RESET}\n"
+
+for FILE in $LIST; do
+  mkdir -p $DEST/$(dirname $FILE)
+  output " ⇒ $DEST/$(dirname $FILE)/$(basename ${FILE})\n"
+
+  cp $FILE $DEST/$(dirname $FILE)/
+done
+
+exit 0
+
