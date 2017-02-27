@@ -1,11 +1,11 @@
 #!/bin/bash
 # File 	  :  Menu 		
 # Descr.  :  Menu component of Address Book app. 
-# 					 Lets user add, remove, find, or email a customer, by 
-#						 presenting the menu options, allowing a user to choose 
-#						 a relevant option, and calling the corresponding script.
-#						 User will continue to be prompted to enter an option 
-#						 until a valid option is entered.
+# Lets user add, remove, find, or email a customer, by 
+# presenting the menu options, allowing a user to choose 
+# a relevant option, and calling the corresponding script.
+# User will continue to be prompted to enter an option 
+# until a valid option is entered.
 # Author  :  Damien Murphy (96406801)
 # Version :  Version 1.0, April 18th 2016 
 
@@ -13,7 +13,7 @@
 exitMenu=false
 until [ $exitMenu == true ]; do
 
-	#clear screen & draw menu
+    #clear screen & draw menu
 	clear
 	printf "\n   ---------------------------------------\n"
 	printf "   Welcome to the Address Book application\n"
@@ -25,11 +25,12 @@ until [ $exitMenu == true ]; do
 	printf "      4. Email a Customer\n"
 	printf "      5. Exit\n\n"	
 	
-	#prompt user for an input until a valid option is received
-	menuchoice=0
-	until [ $menuchoice -ge 1 ] && [ $menuchoice -le 6 ]; do
-	  read -e -p "   Enter a Number : " menuchoice
-	done
+    #prompt user for an input until a valid option is received
+
+    menuchoice=0
+    until [ $menuchoice -ge 1 ] && [ $menuchoice -le 6 ]; do
+         read -e -p "   Enter a Number : " menuchoice
+    done
 
 	#check menuchoice and execute appropriate option
 	case $menuchoice in
